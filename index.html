@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A free, transparent Porsche VIN decoder. Understand model year, chassis family, factory, market format, and every character in your VIN." />
+    <meta name="description" content="A transparent Porsche VIN decoder with VIN anatomy and provider-backed factory colors, installed options, equipment, and MSRP details when a build record is available." />
     <meta name="theme-color" content="#12130f" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312130f'/%3E%3Cpath d='M14 19h36L32 48z' fill='%23d8ff3e'/%3E%3C/svg%3E" />
     <title>VIN/17 — Free Porsche VIN Decoder</title>
@@ -56,7 +56,7 @@
               <button class="decode-button" type="submit">Decode VIN <span aria-hidden="true">→</span></button>
             </div>
           </form>
-          <div class="privacy-note"><span class="status-dot"></span>Decoded locally in your browser</div>
+          <div class="privacy-note"><span class="status-dot"></span>Core VIN decoded locally · build record fetched securely</div>
         </div>
       </section>
 
@@ -113,6 +113,72 @@
             <dl class="detail-grid" id="detail-grid"></dl>
           </section>
 
+          <section class="factory-section" id="factory-build" aria-labelledby="factory-title" aria-busy="true">
+            <div class="section-heading factory-heading">
+              <div><p class="section-index">03 / Factory build</p><h3 id="factory-title">The window-sticker details.</h3></div>
+              <p>VIN-specific colors, selected options, packages, equipment, and original pricing from a licensed build-record provider.</p>
+            </div>
+
+            <div class="factory-state factory-loading" id="factory-loading" role="status">
+              <div class="factory-spinner" aria-hidden="true"></div>
+              <div><strong>Looking for the factory build record</strong><p>Checking VIN-specific configuration data—not a generic options catalog.</p></div>
+            </div>
+
+            <div class="factory-state factory-unavailable" id="factory-unavailable" hidden>
+              <span class="state-mark" aria-hidden="true">!</span>
+              <div>
+                <strong id="factory-error-title">Factory build record unavailable</strong>
+                <p id="factory-error-message">The basic VIN decode above remains valid.</p>
+                <div class="state-actions">
+                  <button class="inline-button" id="factory-retry" type="button">Try again</button>
+                  <a href="https://www.porsche.com/usa/accessoriesandservices/classic/technicalcertificate/" target="_blank" rel="noreferrer">Official Porsche documents <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="factory-content" id="factory-content" hidden>
+              <div class="factory-sourcebar">
+                <div class="source-status"><span></span><strong>VIN-specific build record</strong></div>
+                <p><span id="factory-source">Licensed data provider</span><span class="source-separator">/</span><span id="factory-confidence">Confidence not stated</span></p>
+              </div>
+
+              <div class="build-identity" id="build-identity"></div>
+
+              <div class="build-subsection colors-subsection">
+                <div class="subsection-title"><p>Configuration</p><h4>Exterior &amp; cabin</h4></div>
+                <div class="color-grid" id="color-grid"></div>
+              </div>
+
+              <div class="build-subsection pricing-subsection" id="pricing-section">
+                <div class="subsection-title"><p>Original pricing</p><h4>Sticker summary</h4></div>
+                <dl class="price-grid" id="price-grid"></dl>
+                <p class="pricing-note">Provider-reported original amounts. Currency and market availability depend on the source record.</p>
+              </div>
+
+              <div class="build-subsection options-subsection">
+                <div class="options-title-row">
+                  <div class="subsection-title"><p>Selected at build</p><h4>Added options</h4></div>
+                  <span class="option-count" id="option-count"></span>
+                </div>
+                <div class="package-list" id="package-list"></div>
+                <div class="options-table-wrap">
+                  <table class="options-table">
+                    <thead><tr><th scope="col">Code</th><th scope="col">Factory option</th><th scope="col">Type</th><th scope="col">MSRP</th><th scope="col">Evidence</th></tr></thead>
+                    <tbody id="options-body"></tbody>
+                  </table>
+                </div>
+                <div class="empty-options" id="empty-options" hidden>No individually priced option lines were returned for this build record.</div>
+              </div>
+
+              <div class="build-subsection equipment-subsection" id="equipment-section">
+                <div class="subsection-title"><p>As equipped</p><h4>Equipment &amp; features</h4></div>
+                <div class="equipment-groups" id="equipment-groups"></div>
+              </div>
+
+              <p class="record-disclaimer">“Installed” means the provider associated the item with this VIN. Confidence and verification labels are shown exactly so inferred data is not presented as factory-certified.</p>
+            </div>
+          </section>
+
           <section class="year-note" id="year-note" aria-labelledby="year-note-title">
             <div class="note-mark">M</div>
             <div>
@@ -124,7 +190,7 @@
 
           <section class="limits-section" id="method" aria-labelledby="method-title">
             <div class="limits-intro">
-              <p class="section-index">03 / The honest bit</p>
+              <p class="section-index">04 / The honest bit</p>
               <h3 id="method-title">A VIN is an identity, not a build sheet.</h3>
             </div>
             <div class="limits-columns">
@@ -136,7 +202,7 @@
               <div>
                 <span class="limit-icon no" aria-hidden="true">–</span>
                 <h4>What needs factory data</h4>
-                <p>Paint, interior, engine variant, transmission, option codes, MSRP, ownership, and service history.</p>
+                <p>Factory colors, equipment, option codes, and MSRP require a VIN-level build record. Ownership and service history are never inferred.</p>
               </div>
             </div>
           </section>
