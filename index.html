@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A free, transparent Porsche VIN decoder. Understand model year, chassis family, factory, market format, and every character in your VIN." />
+    <meta name="theme-color" content="#12130f" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312130f'/%3E%3Cpath d='M14 19h36L32 48z' fill='%23d8ff3e'/%3E%3C/svg%3E" />
+    <title>VIN/17 — Free Porsche VIN Decoder</title>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="VIN 17 home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 6h26L16 27 3 6Z"/><path d="m10 11 6 9 6-9"/></svg>
+        <span>VIN/17</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#decoder">Decoder</a>
+        <a href="#method">Method</a>
+      </nav>
+      <a class="header-cta" href="#decode-form">Decode a Porsche <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span>Independent Porsche research</span><span>Decoder No. 01</span></p>
+          <h1 id="hero-title">Every Porsche starts with <em>17 characters.</em></h1>
+          <p class="hero-lede">Turn yours into a clear, honest vehicle profile. No account. No paywall. No invented factory options.</p>
+        </div>
+
+        <div class="decoder-panel" id="decoder">
+          <div class="panel-index" aria-hidden="true">01—17</div>
+          <form id="decode-form" novalidate>
+            <label for="vin-input">Your Porsche VIN</label>
+            <div class="input-shell" id="input-shell">
+              <input
+                id="vin-input"
+                name="vin"
+                type="text"
+                value="WP0ZZZ99ZMS216267"
+                maxlength="17"
+                minlength="17"
+                inputmode="text"
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+                aria-describedby="vin-hint vin-error"
+              />
+              <span class="char-count" id="char-count" aria-hidden="true">17/17</span>
+            </div>
+            <p class="form-error" id="vin-error" role="alert"></p>
+            <div class="form-footer">
+              <p id="vin-hint">Found on the windshield, door jamb, or registration.</p>
+              <button class="decode-button" type="submit">Decode VIN <span aria-hidden="true">→</span></button>
+            </div>
+          </form>
+          <div class="privacy-note"><span class="status-dot"></span>Decoded locally in your browser</div>
+        </div>
+      </section>
+
+      <section class="result-section" id="result" aria-live="polite" aria-labelledby="result-title" hidden>
+        <div class="result-masthead">
+          <div class="result-topline">
+            <p>Decoded vehicle profile</p>
+            <div class="result-actions">
+              <button class="text-button" id="copy-button" type="button">Copy VIN</button>
+              <button class="text-button" id="share-button" type="button">Share result</button>
+            </div>
+          </div>
+
+          <div class="vehicle-heading">
+            <div>
+              <div class="confidence-badge"><span></span><span id="confidence-label">Chassis match</span></div>
+              <h2 id="result-title"><span id="result-year"></span> Porsche <span id="result-model"></span></h2>
+              <p><span id="result-generation"></span> <span class="mid-dot">·</span> <span id="result-plant"></span></p>
+            </div>
+            <div class="vehicle-art" aria-hidden="true">
+              <svg viewBox="0 0 660 210" role="img">
+                <path class="art-grid" d="M20 176H640M60 40v150M600 40v150" />
+                <path class="car-body" d="M83 142c22-5 46-12 67-27 32-24 58-53 105-58 65-8 146 9 195 38 20 12 38 27 68 31l54 8c19 3 31 13 36 28H55c4-11 13-17 28-20Z"/>
+                <path class="car-detail" d="M159 113c38-27 61-43 99-47 52-6 119 6 161 29l-260 18ZM472 110l-22-15M90 140h57M525 128l32 5M228 162h205" />
+                <circle class="wheel" cx="176" cy="161" r="37"/><circle class="wheel-inner" cx="176" cy="161" r="18"/>
+                <circle class="wheel" cx="490" cy="161" r="37"/><circle class="wheel-inner" cx="490" cy="161" r="18"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="key-stats">
+            <div><span>Model year</span><strong id="stat-year"></strong></div>
+            <div><span>Chassis</span><strong id="stat-chassis"></strong></div>
+            <div><span>Serial</span><strong id="stat-serial"></strong></div>
+            <div><span>Market format</span><strong id="stat-market"></strong></div>
+          </div>
+        </div>
+
+        <div class="result-body">
+          <section class="anatomy-card" aria-labelledby="anatomy-title">
+            <div class="section-heading">
+              <div><p class="section-index">01 / VIN anatomy</p><h3 id="anatomy-title">Read all seventeen.</h3></div>
+              <p>Every section of the VIN carries a different piece of the car’s identity.</p>
+            </div>
+            <div class="vin-strip" id="vin-strip" aria-label="VIN character breakdown"></div>
+            <div class="segment-legend" id="segment-legend"></div>
+          </section>
+
+          <section class="details-section" aria-labelledby="details-title">
+            <div class="section-heading">
+              <div><p class="section-index">02 / Vehicle profile</p><h3 id="details-title">What the VIN tells us.</h3></div>
+              <p>Decoded from Porsche identifiers and ISO VIN structure—not a guessed trim or scraped listing.</p>
+            </div>
+            <dl class="detail-grid" id="detail-grid"></dl>
+          </section>
+
+          <section class="year-note" id="year-note" aria-labelledby="year-note-title">
+            <div class="note-mark">M</div>
+            <div>
+              <p class="section-index">Decoder’s note</p>
+              <h3 id="year-note-title">Why “M” means <span id="note-year">2021</span> here.</h3>
+            </div>
+            <p id="year-explanation"></p>
+          </section>
+
+          <section class="limits-section" id="method" aria-labelledby="method-title">
+            <div class="limits-intro">
+              <p class="section-index">03 / The honest bit</p>
+              <h3 id="method-title">A VIN is an identity, not a build sheet.</h3>
+            </div>
+            <div class="limits-columns">
+              <div>
+                <span class="limit-icon yes" aria-hidden="true">✓</span>
+                <h4>What we can verify</h4>
+                <p>Manufacturer, model year code, vehicle family, factory, market format, and production sequence.</p>
+              </div>
+              <div>
+                <span class="limit-icon no" aria-hidden="true">–</span>
+                <h4>What needs factory data</h4>
+                <p>Paint, interior, engine variant, transmission, option codes, MSRP, ownership, and service history.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="closing-cta" aria-labelledby="closing-title">
+        <p class="section-index">Your turn</p>
+        <h2 id="closing-title">Seventeen characters.<br /><em>One very specific car.</em></h2>
+        <button type="button" id="decode-another">Decode another VIN <span aria-hidden="true">↑</span></button>
+      </section>
+    </main>
+
+    <footer>
+      <a class="wordmark footer-mark" href="#top" aria-label="VIN 17 home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 6h26L16 27 3 6Z"/><path d="m10 11 6 9 6-9"/></svg>
+        <span>VIN/17</span>
+      </a>
+      <p>Independent research tool. Not affiliated with or endorsed by Porsche AG.</p>
+      <p>Built for owners, buyers &amp; the merely curious.</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
