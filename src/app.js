@@ -119,16 +119,17 @@ function renderResult(data, { scroll = true } = {}) {
   buildVinStrip(data);
   buildDetails(data);
   resultSection.hidden = false;
+  // Force a layout pass before the visible state is applied. This keeps deep-linked
+  // VIN results visible even when the page is restored or rendered offscreen.
+  void resultSection.offsetWidth;
+  resultSection.classList.add("is-visible");
 
   const url = new URL(window.location.href);
   url.searchParams.set("vin", data.vin);
   window.history.replaceState({}, "", url);
   document.title = `${data.year} Porsche ${data.model} · ${data.vin} | VIN/17`;
 
-  requestAnimationFrame(() => {
-    resultSection.classList.add("is-visible");
-    if (scroll) resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  if (scroll) requestAnimationFrame(() => resultSection.scrollIntoView({ behavior: "smooth", block: "start" }));
 }
 
 function submitVin({ scroll = true } = {}) {
